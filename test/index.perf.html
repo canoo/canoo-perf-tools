@@ -1,0 +1,12 @@
+<script src="../bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+<script src="../bower_components/perf-tester/perf-tester.js"></script>
+
+<perf-tester runs="10"></perf-tester>
+
+<script>
+  addEventListener("WebComponentsReady", function () {
+    document.querySelector("perf-tester").tests = [
+      "./foo-element.perf.html",
+    ]
+  })
+</script>

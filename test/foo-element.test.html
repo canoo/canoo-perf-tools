@@ -1,0 +1,39 @@
+<script src="../bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+<script src="../bower_components/web-component-tester/browser.js"></script>
+<link rel="import" href="../foo-element.html">
+
+<test-fixture id="BasicTestFixture">
+  <template>
+    <foo-element></foo-element>
+  </template>
+</test-fixture>
+
+<test-fixture id="ChangedPropertyTestFixture">
+  <template>
+    <foo-element prop1="new-prop1"></foo-element>
+  </template>
+</test-fixture>
+
+<script>
+  suite("element", function() {
+
+    test("instantiating the element with default properties works", function() {
+      var element = fixture("BasicTestFixture")
+      expect(element.prop1).to.equal("foo-element")
+
+      var elementShadowRoot = element.shadowRoot
+      var elementHeader = elementShadowRoot.querySelector("h2")
+      expect(elementHeader.innerHTML).to.equal("Hello foo-element!")
+    })
+
+    test("setting a property on the element works", function() {
+      var element = fixture("ChangedPropertyTestFixture")
+      expect(element.prop1).to.equal("new-prop1")
+
+      var elementShadowRoot = element.shadowRoot
+      var elementHeader = elementShadowRoot.querySelector("h2")
+      expect(elementHeader.innerHTML).to.equal("Hello new-prop1!")
+    })
+
+  })
+</script>
