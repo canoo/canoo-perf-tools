@@ -14,26 +14,103 @@
   </template>
 </test-fixture>
 
+<test-fixture id="ElementCountFixture">
+  <template>
+    <div>
+      <input>
+      <span>foo</span>
+      <foo-element></foo-element>
+      <foo-element prop1="new-prop1"></foo-element>
+    </div>
+  </template>
+</test-fixture>
+
 <script>
   suite("element", function() {
 
-    test("instantiating the element with default properties works", function() {
-      var element = fixture("BasicTestFixture")
+    test("init the element with default properties", () => {
+      const element = fixture("BasicTestFixture")
       expect(element.prop1).to.equal("foo-element")
 
-      var elementShadowRoot = element.shadowRoot
-      var elementHeader = elementShadowRoot.querySelector("h2")
+      const elementShadowRoot = element.shadowRoot
+      const elementHeader = elementShadowRoot.querySelector("h2")
       expect(elementHeader.innerHTML).to.equal("Hello foo-element!")
     })
 
-    test("setting a property on the element works", function() {
-      var element = fixture("ChangedPropertyTestFixture")
+    test("set a property on the element", () => {
+      const element = fixture("ChangedPropertyTestFixture")
       expect(element.prop1).to.equal("new-prop1")
 
-      var elementShadowRoot = element.shadowRoot
-      var elementHeader = elementShadowRoot.querySelector("h2")
+      const elementShadowRoot = element.shadowRoot
+      const elementHeader = elementShadowRoot.querySelector("h2")
       expect(elementHeader.innerHTML).to.equal("Hello new-prop1!")
     })
 
+    test("count custom elements", () => {
+      const isWebComponent = node => !!node.shadowRoot
+      const isPolymerElement = node => !!node.$
+
+      const element = fixture("ElementCountFixture")
+      const elementCount = { total: 0, matching: 0 }
+
+      walkElements(element,
+        node => NodeFilter.FILTER_ACCEPT,
+        node => {
+          console.group()
+          console.dir(node)
+          console.log("is web component", isWebComponent(node))
+          console.log("is polymer element", isPolymerElement(node))
+          console.groupEnd()
+
+          elementCount.total += 1
+          if (isPolymerElement(node)) {
+            elementCount.matching += 1
+          }
+        }
+      )
+      console.log("element count", elementCount)
+      // setTimeout(done, 9500)
+    })
+
+    function walkElements(rootElement, acceptFn, consumeFn) {
+      const treeWalker = document.createTreeWalker(
+        rootElement, NodeFilter.SHOW_ELEMENT, { acceptNode: acceptFn }, false
+      )
+      if (treeWalker.currentNode) {
+        consumeFn(treeWalker.currentNode)
+        while (treeWalker.nextNode()) {
+          consumeFn(treeWalker.currentNode)
+        }
+      }
+    }
+
+    /**
+     * see: https://developer.mozilla.org/en-US/docs/Web/API/Document
+     * see: https://developer.mozilla.org/en-US/docs/Web/API/Node
+     * see: https://developer.mozilla.org/en-US/docs/Web/API/Element
+     *
+     * Document.all
+     * Document.body
+     * Document.getElementById(id)
+     * Document.getElementsByClassName(names)
+     * Document.getElementsByTagName(name)
+     * Document.querySelector(selectors)
+     * Document.querySelectorAll(selectors)
+     * Node.childNodes
+     * Node.firstChild
+     * Node.nextChild
+     * Node.nextSibling
+     * Node.parentNode
+     * Node.previousSibling
+     * Node.textContent
+     * Node.appendChild()
+     * Node.hasChildNodes()
+     * Node.removeChild()
+     * Node.replaceChild()
+     * Element.id
+     * Element.tagName
+     * Element.querySelector()
+     * Element.querySelectorAll()
+     */
   })
 </script>
