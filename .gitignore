@@ -2,6 +2,10 @@
 bower_components/
 node_modules/
 
+# npm and yarn lock files.
+package-lock.json
+yarn.lock
+
 # macos.
 *.DS_Store
 

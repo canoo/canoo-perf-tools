@@ -70,6 +70,8 @@
       )
       console.log("element count", elementCount)
       // setTimeout(done, 9500)
+      expect(elementCount.total).to.equal(5)
+      expect(elementCount.matching).to.equal(2)
     })
 
     function walkElements(rootElement, acceptFn, consumeFn) {

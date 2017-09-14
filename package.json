@@ -1,0 +1,13 @@
+{
+  "name": "canoo-perf-tools",
+  "version": "0.1.0",
+  "repository": "https://github.com/canoo/canoo-perf-tools",
+  "license": "BSD",
+  "private": true,
+  "scripts": {
+    "dev": "./node_modules/.bin/browser-sync start -c bsconfig.js"
+  },
+  "dependencies": {
+    "browser-sync": "^2.18.13"
+  }
+}
