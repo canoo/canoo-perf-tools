@@ -36,20 +36,28 @@
           counters: {
             type: Object,
             value: { connected: 0, disconnected: 0 }
+          },
+          log: {
+            type: Boolean,
+            value: false
           }
         }
       }
 
       connectedCallback() {
         super.connectedCallback()
-        console.log("watchable connected:", this.name)
+        if (this.log) {
+          console.log("watchable connected:", this.name)
+        }
         this.set("counters.connected", this.counters.connected + 1)
         this.dispatchEvent(new CustomEvent("counters", { detail: this.counters }))
       }
 
       disconnectedCallback() {
         super.disconnectedCallback()
-        console.log("watchable disconnected:", this.name)
+        if (this.log) {
+          console.log("watchable disconnected:", this.name)
+        }
         this.set("counters.disconnected", this.counters.disconnected + 1)
         this.dispatchEvent(new CustomEvent("counters", { detail: this.counters }))
       }
