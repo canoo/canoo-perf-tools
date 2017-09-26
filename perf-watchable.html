@@ -1,0 +1,69 @@
+<!-- ------------------------------------------------------------------------------------------ -->
+<!-- IMPORTS.
+<!-- ------------------------------------------------------------------------------------------ -->
+
+<link rel="import" href="./bower_components/polymer/polymer-element.html">
+
+<dom-module id="perf-watchable">
+
+  <!-- ---------------------------------------------------------------------------------------- -->
+  <!-- TEMPLATE.
+  <!-- ---------------------------------------------------------------------------------------- -->
+
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+
+    <slot></slot>
+  </template>
+
+  <!-- ---------------------------------------------------------------------------------------- -->
+  <!-- ELEMENT.
+  <!-- ---------------------------------------------------------------------------------------- -->
+
+  <script>
+    class PerfWatchable extends Polymer.Element {
+      static get is() { return "perf-watchable" }
+
+      static get properties() {
+        return {
+          name: {
+            type: String
+          },
+          counters: {
+            type: Object,
+            value: { connected: 0, disconnected: 0 }
+          },
+          log: {
+            type: Boolean,
+            value: false
+          }
+        }
+      }
+
+      connectedCallback() {
+        super.connectedCallback()
+        if (this.log) {
+          console.log("watchable connected:", this.name)
+        }
+        this.set("counters.connected", this.counters.connected + 1)
+        this.dispatchEvent(new CustomEvent("counters", { detail: this.counters }))
+      }
+
+      disconnectedCallback() {
+        super.disconnectedCallback()
+        if (this.log) {
+          console.log("watchable disconnected:", this.name)
+        }
+        this.set("counters.disconnected", this.counters.disconnected + 1)
+        this.dispatchEvent(new CustomEvent("counters", { detail: this.counters }))
+      }
+    }
+
+    window.customElements.define(PerfWatchable.is, PerfWatchable)
+  </script>
+
+</dom-module>
