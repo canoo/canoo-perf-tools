@@ -32,13 +32,13 @@
 
 <dom-bind id="conditional-pages">
   <template>
-    <template is="dom-if" if="[[isPageOne]]">
+    <template is="dom-if" if="[[isPageOne]]" restamp>
       <perf-watchable name="page-one" log>page-one</perf-watchable>
     </template>
-    <template is="dom-if" if="[[isPageTwo]]">
+    <template is="dom-if" if="[[isPageTwo]]" restamp>
       <perf-watchable name="page-two" log>page-two</perf-watchable>
     </template>
-    <template is="dom-if" if="[[isPageThree]]">
+    <template is="dom-if" if="[[isPageThree]]" restamp>
       <perf-watchable name="page-three" log>page-three</perf-watchable>
     </template>
   </template>
@@ -48,6 +48,9 @@
       const element = document.querySelector("dom-bind#conditional-pages")
       element.isPageOne = true
       element.isPageThree = true
+      Polymer.RenderStatus.afterNextRender(this, () => {
+        element.isPageThree = false
+      })
     })
   </script>
 </dom-bind>
@@ -58,7 +61,7 @@
 
 <dom-bind id="lazy-items">
   <template>
-    <template is="dom-repeat" items="[[items]]" rendered-item-count="{{itemCount}}" initial-count="5" target-framerate="0">
+    <template is="dom-repeat" items="[[items]]" initial-count="5" target-framerate="0" rendered-item-count="{{itemCount}}">
       <perf-watchable name="item-[[item]]">item-[[item]]</perf-watchable>
     </template>
   </template>
