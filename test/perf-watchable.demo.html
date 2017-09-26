@@ -2,3 +2,10 @@
 <link rel="import" href="../perf-watchable.html">
 
 <perf-watchable name="first"></perf-watchable>
+
+<script>
+  window.addEventListener("WebComponentsReady", function () {
+    const element = document.querySelector("[name=first]")
+    console.log("counters:", element.counters)
+  })
+</script>

@@ -10,7 +10,6 @@
   </template>
 
   <script>
-    window.addEventListener("WebComponentsReady", function () {
       class PerfWatchable extends Polymer.Element {
         static get is() { return "perf-watchable" }
 
@@ -19,22 +18,27 @@
             name: {
               type: String,
               reflectToAttribute: true
+            },
+            counters: {
+              type: Object,
+              value: { connected: 0, disconnected: 0 }
             }
           }
         }
 
         connectedCallback() {
           super.connectedCallback()
+          this.set("counters.connected", this.counters.connected + 1)
           console.log("connected:", this.name)
         }
 
         disconnectedCallback() {
           super.disconnectedCallback()
+          this.set("counters.disconnected", this.counters.disconnected + 1)
           console.log("disconnected:", this.name)
         }
       }
 
       window.customElements.define(PerfWatchable.is, PerfWatchable)
-    })
   </script>
 </dom-module>
