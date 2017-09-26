@@ -76,9 +76,9 @@
 
       Polymer.RenderStatus.beforeNextRender(this, () => {
         console.log("item count:", element.itemCount)
-        Polymer.RenderStatus.beforeNextRender(this, () => {
-          console.log("item count:", element.itemCount)
-        })
+      })
+      Polymer.RenderStatus.afterNextRender(this, () => {
+        console.log("item count:", element.itemCount)
       })
     })
   </script>
