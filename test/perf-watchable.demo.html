@@ -16,7 +16,11 @@
 <script>
   window.addEventListener("WebComponentsReady", function () {
     const element = document.querySelector("[name=first]")
-    console.log("counters:", element.name, element.counters)
+    console.log("watchable property:", element.name, element.counters)
+    element.addEventListener("counters", event => {
+      console.log("watchable event:", event.target.name, event.detail)
+    })
+    element.remove()
   })
 </script>
 

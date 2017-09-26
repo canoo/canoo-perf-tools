@@ -42,14 +42,16 @@
 
       connectedCallback() {
         super.connectedCallback()
+        console.log("watchable connected:", this.name)
         this.set("counters.connected", this.counters.connected + 1)
-        console.log("connected:", this.name)
+        this.dispatchEvent(new CustomEvent("counters", { detail: this.counters }))
       }
 
       disconnectedCallback() {
         super.disconnectedCallback()
+        console.log("watchable disconnected:", this.name)
         this.set("counters.disconnected", this.counters.disconnected + 1)
-        console.log("disconnected:", this.name)
+        this.dispatchEvent(new CustomEvent("counters", { detail: this.counters }))
       }
     }
 
