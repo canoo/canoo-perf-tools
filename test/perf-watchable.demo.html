@@ -1,11 +1,47 @@
+<!-- ------------------------------------------------------------------------------------------ -->
+<!-- IMPORTS.
+<!-- ------------------------------------------------------------------------------------------ -->
+
 <script src="../bower_components/webcomponentsjs/webcomponents-loader.js"></script>
 <link rel="import" href="../perf-watchable.html">
+<link rel="import" href="../bower_components/polymer/lib/elements/dom-bind.html">
+<link rel="import" href="../bower_components/polymer/lib/elements/dom-if.html">
 
-<perf-watchable name="first"></perf-watchable>
+<!-- ------------------------------------------------------------------------------------------ -->
+<!-- EXAMPLE.
+<!-- ------------------------------------------------------------------------------------------ -->
+
+<perf-watchable name="first">first</perf-watchable>
 
 <script>
   window.addEventListener("WebComponentsReady", function () {
     const element = document.querySelector("[name=first]")
-    console.log("counters:", element.counters)
+    console.log("counters:", element.name, element.counters)
+  })
+</script>
+
+<!-- ------------------------------------------------------------------------------------------ -->
+<!-- EXAMPLE.
+<!-- ------------------------------------------------------------------------------------------ -->
+
+<dom-bind id="conditional-pages">
+  <template>
+    <template is="dom-if" if="[[ isPageOne ]]">
+      <perf-watchable name="page-one">page-one</perf-watchable>
+    </template>
+    <template is="dom-if" if="[[ isPageTwo ]]">
+      <perf-watchable name="page-two">page-two</perf-watchable>
+    </template>
+    <template is="dom-if" if="[[ isPageThree ]]">
+      <perf-watchable name="page-three">page-three</perf-watchable>
+    </template>
+  </template>
+</dom-bind>
+
+<script>
+  window.addEventListener("WebComponentsReady", function () {
+    const element = document.querySelector("dom-bind#conditional-pages")
+    element.isPageOne = true
+    element.isPageThree = true
   })
 </script>
