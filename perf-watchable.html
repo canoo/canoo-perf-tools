@@ -1,0 +1,40 @@
+<link rel="import" href="./bower_components/polymer/polymer-element.html">
+
+<dom-module id="perf-watchable">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+  </template>
+
+  <script>
+    window.addEventListener("WebComponentsReady", function () {
+      class PerfWatchable extends Polymer.Element {
+        static get is() { return "perf-watchable" }
+
+        static get properties() {
+          return {
+            name: {
+              type: String,
+              reflectToAttribute: true
+            }
+          }
+        }
+
+        connectedCallback() {
+          super.connectedCallback()
+          console.log("connected:", this.name)
+        }
+
+        disconnectedCallback() {
+          super.disconnectedCallback()
+          console.log("disconnected:", this.name)
+        }
+      }
+
+      window.customElements.define(PerfWatchable.is, PerfWatchable)
+    })
+  </script>
+</dom-module>
