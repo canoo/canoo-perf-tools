@@ -13,18 +13,22 @@
 <!-- EXAMPLE.
 <!-- ------------------------------------------------------------------------------------------ -->
 
-<perf-watchable name="first" log>first</perf-watchable>
+<dom-bind id="simple-example">
+  <template>
+    <perf-watchable name="first" log>first</perf-watchable>
+  </template>
 
-<script>
-  window.addEventListener("WebComponentsReady", function () {
-    const element = document.querySelector("[name=first]")
-    console.log("watchable property:", element.name, element.counters)
-    element.addEventListener("counters", event => {
-      console.log("watchable event:", event.target.name, event.detail)
+  <script>
+    window.addEventListener("WebComponentsReady", function () {
+      const element = document.querySelector("[name=first]")
+      console.log("watchable property:", element.name, element.counters)
+      element.addEventListener("counters", event => {
+        console.log("watchable event:", event.target.name, event.detail)
+      })
+      element.remove()
     })
-    element.remove()
-  })
-</script>
+  </script>
+</dom-bind>
 
 <!-- ------------------------------------------------------------------------------------------ -->
 <!-- EXAMPLE.
