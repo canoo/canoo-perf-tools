@@ -3,7 +3,7 @@
 <dom-module id="host-element">
   <template>
     <p>in host element</p>
-    <model-element id="modelElement" model="{{hostModel}}"></model-element>
+    <data-element id="dataElement" model="{{hostModel}}"></data-element>
   </template>
 
   <script>
@@ -28,14 +28,14 @@
           console.log("host-element ready:", this)
 
           this.set("hostModel", { change: 1 })
-          this.$.modelElement.set("model", { change: 2 })
+          this.$.dataElement.set("model", { change: 2 })
           this.set("hostModel.change", 3)
 
           // change without notification in model. the hostModel was changed, too.
           // conclusion: model and hostModel refer to the same object.
-          this.$.modelElement.model.change = 4
-          console.log(this.$.modelElement.model, this.hostModel)
-          console.log(this.$.modelElement.model === this.hostModel)
+          this.$.dataElement.model.change = 4
+          console.log(this.$.dataElement.model, this.hostModel)
+          console.log(this.$.dataElement.model === this.hostModel)
         }
 
         _onHostModelChanged(event) {
@@ -48,14 +48,14 @@
   </script>
 </dom-module>
 
-<dom-module id="model-element">
+<dom-module id="data-element">
   <template>
-    <p>in model element</p>
+    <p>in data element</p>
   </template>
 
   <script>
-    class ModelElement extends Polymer.Element {
-      static get is() { return "model-element" }
+    class DataElement extends Polymer.Element {
+      static get is() { return "data-element" }
 
       static get properties() {
         return {
@@ -69,10 +69,10 @@
 
       ready() {
         super.ready()
-        console.log("model-element ready:", this)
+        console.log("data-element ready:", this)
       }
     }
 
-    window.customElements.define(ModelElement.is, ModelElement)
+    window.customElements.define(DataElement.is, DataElement)
   </script>
 </dom-module>
