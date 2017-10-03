@@ -1,11 +1,10 @@
-# dependencies
+# dependencies.
 bower_components/
 node_modules/
+
+# apple macos.
+*.DS_Store
 
 # npm and yarn lock files.
 package-lock.json
 yarn.lock
-
-# macos.
-*.DS_Store
-
