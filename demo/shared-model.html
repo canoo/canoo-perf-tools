@@ -1,0 +1,78 @@
+<link rel="import" href="../bower_components/polymer/polymer-element.html">
+
+<dom-module id="host-element">
+  <template>
+    <p>in host element</p>
+    <model-element id="modelElement" model="{{hostModel}}"></model-element>
+  </template>
+
+  <script>
+    HTMLImports.whenReady(() => {
+      class HostElement extends Polymer.Element {
+        static get is() { return "host-element" }
+
+        static get properties() {
+          return {
+            hostModel: Object
+          }
+        }
+
+        static get observers() {
+          return [
+            "_onHostModelChanged(hostModel.*)",
+          ]
+        }
+
+        ready() {
+          super.ready()
+          console.log("host-element ready:", this)
+
+          this.set("hostModel", { change: 1 })
+          this.$.modelElement.set("model", { change: 2 })
+          this.set("hostModel.change", 3)
+
+          // change without notification in model. the hostModel was changed, too.
+          // conclusion: model and hostModel refer to the same object.
+          this.$.modelElement.model.change = 4
+          console.log(this.$.modelElement.model, this.hostModel)
+          console.log(this.$.modelElement.model === this.hostModel)
+        }
+
+        _onHostModelChanged(event) {
+          console.log("host model changed", this.hostModel, "event:", event.path, event.value)
+        }
+      }
+
+      window.customElements.define(HostElement.is, HostElement)
+    })
+  </script>
+</dom-module>
+
+<dom-module id="model-element">
+  <template>
+    <p>in model element</p>
+  </template>
+
+  <script>
+    class ModelElement extends Polymer.Element {
+      static get is() { return "model-element" }
+
+      static get properties() {
+        return {
+          model: {
+            type: Object,
+            value: () => { return { change: 0 } },
+            notify: true
+          }
+        }
+      }
+
+      ready() {
+        super.ready()
+        console.log("model-element ready:", this)
+      }
+    }
+
+    window.customElements.define(ModelElement.is, ModelElement)
+  </script>
+</dom-module>
