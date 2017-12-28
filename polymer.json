@@ -1,7 +1,22 @@
 {
+  "builds": [
+    {
+      "bundle": true,
+      "js": {
+        "minify": true
+      },
+      "css": {
+        "minify": true
+      },
+      "html": {
+        "minify": true
+      }
+    }
+  ],
   "lint": {
     "rules": [
       "polymer-2"
-    ]
+    ],
+    "ignoreWarnings": []
   }
 }

@@ -1,16 +1,8 @@
-<!-- ------------------------------------------------------------------------------------------ -->
-<!-- IMPORTS.
-<!-- ------------------------------------------------------------------------------------------ -->
-
 <link rel="import" href="./bower_components/polymer/polymer-element.html">
 <link rel="import" href="./bower_components/paper-styles/shadow.html">
 <link rel="import" href="./bower_components/iron-fit-behavior/iron-fit-behavior.html">
 
 <dom-module id="perf-indicator">
-
-  <!-- ---------------------------------------------------------------------------------------- -->
-  <!-- TEMPLATE.
-  <!-- ---------------------------------------------------------------------------------------- -->
 
   <template>
     <div class="shadow">
@@ -36,14 +28,12 @@
     </custom-style>
   </template>
 
-  <!-- ---------------------------------------------------------------------------------------- -->
-  <!-- ELEMENT.
-  <!-- ---------------------------------------------------------------------------------------- -->
-
   <script>
     class PerfIndicator extends Polymer.mixinBehaviors(
         [Polymer.IronFitBehavior], Polymer.Element) {
-      static get is() { return "perf-indicator" }
+      static get is() {
+        return "perf-indicator"
+      }
 
       static get properties() {
         return {
@@ -55,6 +45,7 @@
 
       ready() {
         super.ready()
+
         this.positionTarget = window
         this.verticalAlign = "top"
         this.horizontalAlign = "right"
@@ -62,6 +53,7 @@
 
       connectedCallback() {
         super.connectedCallback()
+
         this.position()
       }
     }

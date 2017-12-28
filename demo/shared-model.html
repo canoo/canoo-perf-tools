@@ -1,15 +1,19 @@
 <link rel="import" href="../bower_components/polymer/polymer-element.html">
 
 <dom-module id="host-element">
+
   <template>
     <p>in host element</p>
+
     <data-element id="dataElement" model="{{hostModel}}"></data-element>
   </template>
 
   <script>
     HTMLImports.whenReady(() => {
       class HostElement extends Polymer.Element {
-        static get is() { return "host-element" }
+        static get is() {
+          return "host-element"
+        }
 
         static get properties() {
           return {
@@ -19,7 +23,7 @@
 
         static get observers() {
           return [
-            "_onHostModelChanged(hostModel.*)",
+            "_onHostModelChanged(hostModel.*)"
           ]
         }
 
@@ -46,16 +50,20 @@
       window.customElements.define(HostElement.is, HostElement)
     })
   </script>
+
 </dom-module>
 
 <dom-module id="data-element">
+
   <template>
     <p>in data element</p>
   </template>
 
   <script>
     class DataElement extends Polymer.Element {
-      static get is() { return "data-element" }
+      static get is() {
+        return "data-element"
+      }
 
       static get properties() {
         return {
@@ -75,4 +83,5 @@
 
     window.customElements.define(DataElement.is, DataElement)
   </script>
+
 </dom-module>
