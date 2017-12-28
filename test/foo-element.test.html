@@ -1,5 +1,6 @@
 <script src="../bower_components/webcomponentsjs/webcomponents-lite.js"></script>
 <script src="../bower_components/web-component-tester/browser.js"></script>
+
 <link rel="import" href="../foo-element.html">
 
 <test-fixture id="BasicTestFixture">
@@ -10,7 +11,7 @@
 
 <test-fixture id="ChangedPropertyTestFixture">
   <template>
-    <foo-element prop1="new-prop1"></foo-element>
+    <foo-element title="my-title"></foo-element>
   </template>
 </test-fixture>
 
@@ -20,7 +21,7 @@
       <input>
       <span>foo</span>
       <foo-element></foo-element>
-      <foo-element prop1="new-prop1"></foo-element>
+      <foo-element title="my-title"></foo-element>
     </div>
   </template>
 </test-fixture>
@@ -30,25 +31,23 @@
 
     test("init the element with default properties", () => {
       const element = fixture("BasicTestFixture")
-      expect(element.prop1).to.equal("foo-element")
+      expect(element.title).to.equal("foo-element")
 
-      const elementShadowRoot = element.shadowRoot
-      const elementHeader = elementShadowRoot.querySelector("h2")
+      const elementHeader = element.shadowRoot.querySelector("h2")
       expect(elementHeader.innerHTML).to.equal("Hello foo-element!")
     })
 
     test("set a property on the element", () => {
       const element = fixture("ChangedPropertyTestFixture")
-      expect(element.prop1).to.equal("new-prop1")
+      expect(element.title).to.equal("my-title")
 
-      const elementShadowRoot = element.shadowRoot
-      const elementHeader = elementShadowRoot.querySelector("h2")
-      expect(elementHeader.innerHTML).to.equal("Hello new-prop1!")
+      const elementHeader = element.shadowRoot.querySelector("h2")
+      expect(elementHeader.innerHTML).to.equal("Hello my-title!")
     })
 
     test("count custom elements", () => {
       const isWebComponent = node => !!node.shadowRoot
-      const isPolymerElement = node => !!node.$
+      const isPolymerElement = node => !!node.ready && !!node.$
 
       const element = fixture("ElementCountFixture")
       const elementCount = { total: 0, matching: 0 }
@@ -57,7 +56,7 @@
         node => NodeFilter.FILTER_ACCEPT,
         node => {
           console.group()
-          console.dir(node)
+          console.log(node)
           console.log("is web component", isWebComponent(node))
           console.log("is polymer element", isPolymerElement(node))
           console.groupEnd()
@@ -70,7 +69,7 @@
       )
       console.log("element count", elementCount)
       // setTimeout(done, 9500)
-      expect(elementCount.total).to.equal(5)
+      // expect(elementCount.total).to.equal(5) // chrome: 5, firefox: 7
       expect(elementCount.matching).to.equal(2)
     })
 

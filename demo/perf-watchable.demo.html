@@ -1,7 +1,3 @@
-<!-- ------------------------------------------------------------------------------------------ -->
-<!-- IMPORTS.
-<!-- ------------------------------------------------------------------------------------------ -->
-
 <script src="../bower_components/webcomponentsjs/webcomponents-loader.js"></script>
 <link rel="import" href="../perf-watchable.html">
 <link rel="import" href="../bower_components/polymer/lib/elements/dom-bind.html">
@@ -9,16 +5,13 @@
 <link rel="import" href="../bower_components/polymer/lib/elements/dom-repeat.html">
 <link rel="import" href="../bower_components/polymer/lib/utils/render-status.html">
 
-<!-- ------------------------------------------------------------------------------------------ -->
-<!-- EXAMPLE.
-<!-- ------------------------------------------------------------------------------------------ -->
-
 <dom-bind id="simple-example">
   <template>
     <perf-watchable name="first" log>first</perf-watchable>
   </template>
 
   <script>
+    // window.addEventListener("HTMLImportsLoaded", function () {
     window.addEventListener("WebComponentsReady", function () {
       const element = document.querySelector("[name=first]")
       console.log("watchable property:", element.name, element.counters)
@@ -30,18 +23,16 @@
   </script>
 </dom-bind>
 
-<!-- ------------------------------------------------------------------------------------------ -->
-<!-- EXAMPLE.
-<!-- ------------------------------------------------------------------------------------------ -->
-
 <dom-bind id="conditional-pages">
   <template>
     <template is="dom-if" if="[[isPageOne]]" restamp>
       <perf-watchable name="page-one" log>page-one</perf-watchable>
     </template>
+
     <template is="dom-if" if="[[isPageTwo]]" restamp>
       <perf-watchable name="page-two" log>page-two</perf-watchable>
     </template>
+
     <template is="dom-if" if="[[isPageThree]]" restamp>
       <perf-watchable name="page-three" log>page-three</perf-watchable>
     </template>
@@ -58,10 +49,6 @@
     })
   </script>
 </dom-bind>
-
-<!-- ------------------------------------------------------------------------------------------ -->
-<!-- EXAMPLE.
-<!-- ------------------------------------------------------------------------------------------ -->
 
 <dom-bind id="lazy-items">
   <template>
