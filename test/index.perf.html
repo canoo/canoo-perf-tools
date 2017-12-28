@@ -4,7 +4,7 @@
 <perf-tester runs="10"></perf-tester>
 
 <script>
-  addEventListener("WebComponentsReady", function () {
+  addEventListener("WebComponentsReady", () => {
     document.querySelector("perf-tester").tests = [
       "./foo-element.perf.html",
     ]

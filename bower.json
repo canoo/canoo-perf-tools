@@ -1,18 +1,21 @@
 {
   "name": "canoo-perf-tools",
-  "main": "canoo-perf-tools.html",
+  "main": "index.html",
+  "private": true,
   "dependencies": {
-    "polymer": "Polymer/polymer#^2.0.0",
-    "paper-styles": "PolymerElements/paper-styles#^2.0.0",
-    "iron-fit-behavior": "PolymerElements/iron-fit-behavior#^2.0.0"
+    "font-roboto": "PolymerElements/font-roboto-local#1.0.1",
+    "iron-fit-behavior": "PolymerElements/iron-fit-behavior#2.1.0",
+    "polymer": "Polymer/polymer#2.3.1",
+    "paper-styles": "PolymerElements/paper-styles#2.0.0",
+    "perf-tester": "PolymerLabs/perf-tester"
   },
   "devDependencies": {
-    "iron-demo-helpers": "PolymerElements/iron-demo-helpers#^2.0.0",
-    "perf-tester": "PolymerLabs/perf-tester",
-    "web-component-tester": "Polymer/web-component-tester#^6.0.0",
-    "webcomponentsjs": "webcomponents/webcomponentsjs#^1.0.0"
+    "iron-component-page": "PolymerElements/iron-component-page#3.0.1",
+    "iron-demo-helpers": "PolymerElements/iron-demo-helpers#2.0.0",
+    "web-component-tester": "Polymer/web-component-tester#6.4.1",
+    "webcomponentsjs": "webcomponents/webcomponentsjs#1.0.22"
   },
   "resolutions": {
-    "polymer": "^2.0.0"
+    "polymer": "2.3.1"
   }
 }

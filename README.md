@@ -1,12 +1,18 @@
 # \<canoo-perf-tools\>
 
-## Serve Files
+Viewing your application.
 
 ```
 $ polymer serve
 ```
 
-## Run Tests
+Building your application.
+
+```
+$ polymer build
+```
+
+Running tests.
 
 ```
 $ polymer test
