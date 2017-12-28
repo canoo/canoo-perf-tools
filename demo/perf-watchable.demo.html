@@ -1,5 +1,6 @@
 <script src="../bower_components/webcomponentsjs/webcomponents-loader.js"></script>
 <link rel="import" href="../perf-watchable.html">
+<link rel="import" href="../perf-indicator.html">
 <link rel="import" href="../bower_components/polymer/lib/elements/dom-bind.html">
 <link rel="import" href="../bower_components/polymer/lib/elements/dom-if.html">
 <link rel="import" href="../bower_components/polymer/lib/elements/dom-repeat.html">
@@ -52,6 +53,7 @@
 
 <dom-bind id="lazy-items">
   <template>
+    <perf-indicator text="0"></perf-indicator>
     <template is="dom-repeat" items="[[items]]" initial-count="5" target-framerate="0" rendered-item-count="{{itemCount}}">
       <perf-watchable name="item-[[item]]">item-[[item]]</perf-watchable>
     </template>
@@ -67,6 +69,15 @@
         items.push(item)
       }
       element.items = items
+
+      let debouncer
+      document.body.addEventListener("counters", event => {
+        debouncer = Polymer.Debouncer
+          .debounce(debouncer, Polymer.Async.timeOut.after(100), () => {
+            document.querySelector("perf-indicator").text =
+              event.detail.connected - event.detail.disconnected
+          })
+      })
 
       Polymer.RenderStatus.beforeNextRender(this, () => {
         console.log("item count:", element.itemCount)

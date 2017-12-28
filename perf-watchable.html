@@ -43,7 +43,9 @@
           console.log("watchable connected:", this.name)
         }
         this.set("counters.connected", this.counters.connected + 1)
-        this.dispatchEvent(new CustomEvent("counters", { detail: this.counters }))
+        this.dispatchEvent(new CustomEvent("counters", {
+          bubbles: true, composed: true, detail: this.counters
+        }))
       }
 
       disconnectedCallback() {
@@ -53,7 +55,9 @@
           console.log("watchable disconnected:", this.name)
         }
         this.set("counters.disconnected", this.counters.disconnected + 1)
-        this.dispatchEvent(new CustomEvent("counters", { detail: this.counters }))
+        this.dispatchEvent(new CustomEvent("counters", {
+          bubbles: true, composed: true, detail: this.counters
+        }))
       }
     }
 
